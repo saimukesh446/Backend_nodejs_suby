@@ -4,6 +4,7 @@
 const Firm = require("../models/Firm");
 const Products =require("../models/Products");
 const multer = require("multer");
+const path =require('path')
 
 
 const storage = multer.diskStorage({

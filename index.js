@@ -8,8 +8,10 @@ const firmRoutes=require("./routes/firmRoutes")
 const bodyparser=require("body-parser");
 const productRoutes=require("./routes/productRoutes")
 const path =require('path')
+const cors = require('cors');
 
 const app=express()
+app.use(cors())
 
 const PORT=process.env.PORT || 4000;
 

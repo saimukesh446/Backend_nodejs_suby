@@ -30,9 +30,14 @@ const vendorRegister = async (req, res) => {
 };
 
 const vendorLogin = async (req, res) => {
+
+  console.log("Hi")
   const { email, password } = req.body;
+  
+ 
   try {
     const vendor = await Vendor.findOne({ email });
+    
 
     if (!vendor || !(await bcrypt.compare(password, vendor.password))) {
       return res.status(401).json({ error: "Invalid username or password" });

@@ -2,6 +2,7 @@
 const Firm = require("../models/Firm");
 const Vendor =require("../models/vendor");
 const multer = require("multer");
+const path =require('path')
 
 
 const storage = multer.diskStorage({
@@ -30,7 +31,6 @@ const addFirm = async(req,res)=>{
     
     if(!vendor){
         res.status(404).json({message:"Vendor nott found"})
-
     }
 
     const newFirm = new Firm ({
