@@ -32,6 +32,6 @@ app.listen(PORT ,()=>{
     console.log(`server started and running at ${PORT}`)
 })
 
-app.use('/', (req,res)=>{
-    res.send("welcome to sai")
-})
+// app.use('/', (req,res)=>{
+//     res.send("welcome to sai")
+// })
