@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
         cb(null, 'uploads/')
     },
     filename:function(req,file,cb){
-        cb(null,Date.now() + Path2D.extname(file.originalname) );
+        cb(null,Date.now() + path.extname(file.originalname) );
     }
 })
 
@@ -58,7 +58,7 @@ const addProduct = async(req,res)=>{
 }
 
 const getProductByFirm = async(req,res)=>{
-    console.log(req)
+    
     try{
         const firmId=req.params.firmId
         const firm=await Firm.findById(firmId)
@@ -69,11 +69,8 @@ const getProductByFirm = async(req,res)=>{
         const restaurantName=firm.firstname;
         const products = await Products.find({firm:firmId});
         
-
         res.status(200).json({restaurantName,products})
         
-
-
     }catch(error){
         console.error(error);
         res.status(500).json({error:"Internal server error"})
@@ -84,16 +81,19 @@ const getProductByFirm = async(req,res)=>{
 const deleteProductById =async(req,res)=>{
     try{
         const productId = req.params.productId;
+        
         const deletedProduct = await Products.findByIdAndDelete(productId)
+        console.log(deletedProduct)
 
         if(!deletedProduct){
             return res.status(404).json({error:"No product found"})
         }
 
+        return  res.status(200).json({message:"product deleted successfully"})
+
     }catch(error){
         console.error(error);
         res.status(500).json({error:"Internal server error"})
-
     }
 }
 

@@ -30,13 +30,15 @@ const vendorRegister = async (req, res) => {
 };
 
 const vendorLogin = async (req, res) => {
-
-  console.log("Hi")
+  
+  
   const { email, password } = req.body;
+  
   
  
   try {
     const vendor = await Vendor.findOne({ email });
+    
     
 
     if (!vendor || !(await bcrypt.compare(password, vendor.password))) {
@@ -44,7 +46,10 @@ const vendorLogin = async (req, res) => {
     }
     const token = jwt.sign({ vendorId: vendor._id }, secretKey);
 
-    res.status(201).json({ success: "Login successful", token });
+    const vendorIds = vendor._id
+    
+
+    res.status(201).json({ success: "Login successful", token, vendorIds });
   } catch (error) {
     return res.status(500).json({ error: "Internal server error" });
   }
@@ -68,7 +73,9 @@ const getVendorById = async(req,res)=>{
     if(!vendor){
       return res.status(404).json({error:"vendor not found"})
     }
-    res.status(200).json({vendor})
+    const vendorFirmId = vendor.firm[0]._id;
+     
+    res.status(200).json({vendor,vendorFirmId})
   }
   catch(error){
     console.log(error)
